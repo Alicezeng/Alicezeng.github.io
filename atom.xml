@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zccblog.com/"/>
-  <updated>2019-04-23T10:16:08.952Z</updated>
+  <updated>2019-04-24T10:00:51.954Z</updated>
   <id>https://zccblog.com/</id>
   
   <author>
@@ -21,33 +21,29 @@
     <link href="https://zccblog.com/2019/04/23/test/"/>
     <id>https://zccblog.com/2019/04/23/test/</id>
     <published>2019-04-23T10:16:08.000Z</published>
-    <updated>2019-04-23T10:16:08.952Z</updated>
+    <updated>2019-04-24T10:00:51.954Z</updated>
     
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://zccblog.com/2019/04/23/hello-world/"/>
-    <id>https://zccblog.com/2019/04/23/hello-world/</id>
-    <published>2019-04-23T09:06:50.325Z</published>
-    <updated>2019-04-23T09:06:50.327Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<p>##css表示文字超过时的省略号</p><ul><li><p>单行文本溢出用省略号</p><ul><li>white-space: nowrap;</li><li>overflow: hidden;</li><li>text-overflow:ellipsis;</li></ul></li><li><p>多行文本溢出用省略号</p><ul><li>display: -webkit-box;</li><li>-webkit-box-orient: vertical;</li><li>-webkit-line-clamp: 3;</li><li>overflow: hidden;</li></ul></li></ul><p>##适用范围</p><p>因使用了WebKit的CSS扩展属性，该方法适用于WebKit浏览器及移动端；</p><p>注：<br>-webkit-line-clamp用来限制在一个块元素显示的文本的行数。 为了实现该效果，它需要组合其他的WebKit属性。</p><p>常见结合属性：</p><p>display: -webkit-box; 必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 。<br>-webkit-box-orient 必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式 。</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+        &lt;p&gt;##css表示文字超过时的省略号&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;单行文本溢出用省略号&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;white-space: nowrap;&lt;/li&gt;
+&lt;li&gt;overflow: hidden;&lt;/li&gt;
+&lt;li&gt;text-overflow:ellipsis;
       
     
     </summary>
     
+      <category term="Testing" scheme="https://zccblog.com/categories/Testing/"/>
+    
+    
+      <category term="Testing" scheme="https://zccblog.com/tags/Testing/"/>
     
   </entry>
   
