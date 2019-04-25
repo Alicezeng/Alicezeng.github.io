@@ -255,7 +255,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zccblog.com/2019/04/23/test/">
+    <link itemprop="mainEntityOfPage" href="https://zccblog.com/2019/04/23/文字超出时用CSS表示省略号/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Alicezeng">
@@ -274,7 +274,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/23/test/" itemprop="url">test</a></h1>
+                <a class="post-title-link" href="/2019/04/23/文字超出时用CSS表示省略号/" itemprop="url">文字超过规定宽度后显示省略号（CSS实现）</a></h1>
         
 
         <div class="post-meta">
@@ -309,8 +309,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Testing/" itemprop="url" rel="index">
-                    <span itemprop="name">Testing</span>
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
                   </a>
                 </span>
 
@@ -348,17 +348,16 @@
       
         
           
-            <p>##css表示文字超过时的省略号</p>
-<ul>
-<li><p>单行文本溢出用省略号</p>
-<ul>
+            <ul>
+<li>单行文本溢出用省略号<ul>
 <li>white-space: nowrap;</li>
 <li>overflow: hidden;</li>
 <li>text-overflow:ellipsis;</li>
 </ul>
 </li>
-<li><p>多行文本溢出用省略号</p>
+</ul>
 <ul>
+<li>多行文本溢出用省略号<ul>
 <li>display: -webkit-box;</li>
 <li>-webkit-box-orient: vertical;</li>
 <li>-webkit-line-clamp: 3;</li>
@@ -366,7 +365,7 @@
 </ul>
 </li>
 </ul>
-<p>##适用范围</p>
+<p>适用范围</p>
 <p>因使用了WebKit的CSS扩展属性，该方法适用于WebKit浏览器及移动端；</p>
 <p>注：<br>-webkit-line-clamp用来限制在一个块元素显示的文本的行数。 为了实现该效果，它需要组合其他的WebKit属性。</p>
 <p>常见结合属性：</p>

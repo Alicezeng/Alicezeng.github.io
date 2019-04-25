@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zccblog.com/"/>
-  <updated>2019-04-24T10:00:51.954Z</updated>
+  <updated>2019-04-25T02:07:09.019Z</updated>
   <id>https://zccblog.com/</id>
   
   <author>
@@ -17,33 +17,36 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>test</title>
-    <link href="https://zccblog.com/2019/04/23/test/"/>
-    <id>https://zccblog.com/2019/04/23/test/</id>
+    <title>文字超过规定宽度后显示省略号（CSS实现）</title>
+    <link href="https://zccblog.com/2019/04/23/%E6%96%87%E5%AD%97%E8%B6%85%E5%87%BA%E6%97%B6%E7%94%A8CSS%E8%A1%A8%E7%A4%BA%E7%9C%81%E7%95%A5%E5%8F%B7/"/>
+    <id>https://zccblog.com/2019/04/23/文字超出时用CSS表示省略号/</id>
     <published>2019-04-23T10:16:08.000Z</published>
-    <updated>2019-04-24T10:00:51.954Z</updated>
+    <updated>2019-04-25T02:07:09.019Z</updated>
     
-    <content type="html"><![CDATA[<p>##css表示文字超过时的省略号</p><ul><li><p>单行文本溢出用省略号</p><ul><li>white-space: nowrap;</li><li>overflow: hidden;</li><li>text-overflow:ellipsis;</li></ul></li><li><p>多行文本溢出用省略号</p><ul><li>display: -webkit-box;</li><li>-webkit-box-orient: vertical;</li><li>-webkit-line-clamp: 3;</li><li>overflow: hidden;</li></ul></li></ul><p>##适用范围</p><p>因使用了WebKit的CSS扩展属性，该方法适用于WebKit浏览器及移动端；</p><p>注：<br>-webkit-line-clamp用来限制在一个块元素显示的文本的行数。 为了实现该效果，它需要组合其他的WebKit属性。</p><p>常见结合属性：</p><p>display: -webkit-box; 必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 。<br>-webkit-box-orient 必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式 。</p>]]></content>
+    <content type="html"><![CDATA[<ul><li>单行文本溢出用省略号<ul><li>white-space: nowrap;</li><li>overflow: hidden;</li><li>text-overflow:ellipsis;</li></ul></li></ul><ul><li>多行文本溢出用省略号<ul><li>display: -webkit-box;</li><li>-webkit-box-orient: vertical;</li><li>-webkit-line-clamp: 3;</li><li>overflow: hidden;</li></ul></li></ul><p>适用范围</p><p>因使用了WebKit的CSS扩展属性，该方法适用于WebKit浏览器及移动端；</p><p>注：<br>-webkit-line-clamp用来限制在一个块元素显示的文本的行数。 为了实现该效果，它需要组合其他的WebKit属性。</p><p>常见结合属性：</p><p>display: -webkit-box; 必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 。<br>-webkit-box-orient 必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式 。</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;##css表示文字超过时的省略号&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;单行文本溢出用省略号&lt;/p&gt;
-&lt;ul&gt;
+        &lt;ul&gt;
+&lt;li&gt;单行文本溢出用省略号&lt;ul&gt;
 &lt;li&gt;white-space: nowrap;&lt;/li&gt;
 &lt;li&gt;overflow: hidden;&lt;/li&gt;
-&lt;li&gt;text-overflow:ellipsis;
+&lt;li&gt;text-overflow:ellipsis;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li
       
     
     </summary>
     
-      <category term="Testing" scheme="https://zccblog.com/categories/Testing/"/>
+      <category term="CSS" scheme="https://zccblog.com/categories/CSS/"/>
     
     
-      <category term="Testing" scheme="https://zccblog.com/tags/Testing/"/>
+      <category term="CSS 省略号" scheme="https://zccblog.com/tags/CSS-%E7%9C%81%E7%95%A5%E5%8F%B7/"/>
     
   </entry>
   
