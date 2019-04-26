@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zccblog.com/"/>
-  <updated>2019-04-25T02:07:09.019Z</updated>
+  <updated>2019-04-25T10:04:11.722Z</updated>
   <id>https://zccblog.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>cookie和session</title>
+    <link href="https://zccblog.com/2019/04/25/test/"/>
+    <id>https://zccblog.com/2019/04/25/test/</id>
+    <published>2019-04-25T09:45:13.000Z</published>
+    <updated>2019-04-25T10:04:11.722Z</updated>
+    
+    <content type="html"><![CDATA[<p>HTML4的本地存储   cookie<br>浏览器的缓存机制提供了可以将用户数据存储在客户端上的方式，可以利用cookie和session等跟服务器进行数据交互。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;HTML4的本地存储   cookie&lt;br&gt;浏览器的缓存机制提供了可以将用户数据存储在客户端上的方式，可以利用cookie和session等跟服务器进行数据交互。&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="存储机制" scheme="https://zccblog.com/categories/%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B6/"/>
+    
+    
+      <category term="cookie session" scheme="https://zccblog.com/tags/cookie-session/"/>
+    
+  </entry>
   
   <entry>
     <title>文字超过规定宽度后显示省略号（CSS实现）</title>
