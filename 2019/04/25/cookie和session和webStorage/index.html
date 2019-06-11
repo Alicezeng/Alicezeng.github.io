@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="cookie session,">
+  <meta name="keywords" content="cookie session webStorage,">
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="HTML4的本地存储   cookie浏览器的缓存机制提供了可以将用户数据存储在客户端上的方式，可以利用cookie和session等跟服务器进行数据交互。">
-<meta name="keywords" content="cookie session">
+<meta name="description" content="什么是cookiecookie是指某些网站为了辨别用户身份而存储在用户本地终端上的数据（通常经过加密）。cookie通过HTTP请求报文和响应报文配合完成。cookie的内容主要包括：键，值，过期时间，路径和域。路径和域一起构成cookie的作用范围。若不设置时间，则表示这个cookie的生命期为浏览器会话期间，此时cookie保存在内存里，关闭浏览器窗口，cookie就消失。（会话cookie可">
+<meta name="keywords" content="cookie session webStorage">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cookie和session">
-<meta property="og:url" content="https://zccblog.com/2019/04/25/test/index.html">
+<meta property="og:title" content="cookie、session和webStorage">
+<meta property="og:url" content="https://zccblog.com/2019/04/25/cookie和session和webStorage/index.html">
 <meta property="og:site_name" content="CC的博客">
-<meta property="og:description" content="HTML4的本地存储   cookie浏览器的缓存机制提供了可以将用户数据存储在客户端上的方式，可以利用cookie和session等跟服务器进行数据交互。">
+<meta property="og:description" content="什么是cookiecookie是指某些网站为了辨别用户身份而存储在用户本地终端上的数据（通常经过加密）。cookie通过HTTP请求报文和响应报文配合完成。cookie的内容主要包括：键，值，过期时间，路径和域。路径和域一起构成cookie的作用范围。若不设置时间，则表示这个cookie的生命期为浏览器会话期间，此时cookie保存在内存里，关闭浏览器窗口，cookie就消失。（会话cookie可">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-25T10:04:11.722Z">
+<meta property="og:updated_time" content="2019-05-09T06:53:15.135Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cookie和session">
-<meta name="twitter:description" content="HTML4的本地存储   cookie浏览器的缓存机制提供了可以将用户数据存储在客户端上的方式，可以利用cookie和session等跟服务器进行数据交互。">
+<meta name="twitter:title" content="cookie、session和webStorage">
+<meta name="twitter:description" content="什么是cookiecookie是指某些网站为了辨别用户身份而存储在用户本地终端上的数据（通常经过加密）。cookie通过HTTP请求报文和响应报文配合完成。cookie的内容主要包括：键，值，过期时间，路径和域。路径和域一起构成cookie的作用范围。若不设置时间，则表示这个cookie的生命期为浏览器会话期间，此时cookie保存在内存里，关闭浏览器窗口，cookie就消失。（会话cookie可">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://zccblog.com/2019/04/25/test/">
+  <link rel="canonical" href="https://zccblog.com/2019/04/25/cookie和session和webStorage/">
 
 
 
 
 
-  <title>cookie和session | CC的博客</title>
+  <title>cookie、session和webStorage | CC的博客</title>
   
 
 
@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zccblog.com/2019/04/25/test/">
+    <link itemprop="mainEntityOfPage" href="https://zccblog.com/2019/04/25/cookie和session和webStorage/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Alicezeng">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">cookie和session</h1>
+          <h1 class="post-title" itemprop="name headline">cookie、session和webStorage</h1>
         
 
         <div class="post-meta">
@@ -359,7 +359,27 @@
       
 
       
-        <p>HTML4的本地存储   cookie<br>浏览器的缓存机制提供了可以将用户数据存储在客户端上的方式，可以利用cookie和session等跟服务器进行数据交互。</p>
+        <h1 id="什么是cookie"><a href="#什么是cookie" class="headerlink" title="什么是cookie"></a>什么是cookie</h1><p>cookie是指某些网站为了辨别用户身份而存储在用户本地终端上的数据（通常经过加密）。cookie通过HTTP请求报文和响应报文配合完成。cookie的内容主要包括：键，值，过期时间，路径和域。路径和域一起构成cookie的作用范围。若不设置时间，则表示这个cookie的生命期为浏览器会话期间，此时cookie保存在内存里，关闭浏览器窗口，cookie就消失。（会话cookie可以跨同一个浏览器的不同窗口，但关闭浏览器或者跨浏览器后就会失效）<br>若设置了过期时间，则浏览器把cookie保存在硬盘上，关闭后再打开浏览器这些cookie仍然有效直到超过设定的过期时间。<br>cookie既可以由服务端来设置，也可以由客户端来设置。<br>服务端设置：客户端第一次向服务端请求时，在相应的请求头中就有set-cookie字段，用来标识是哪个用户，响应头中有set-cookie字段，有几个这个字段就有几个cookie。服务端可以设置cookie 的所有选项：expires、domain、path、secure、HttpOnly。<br>客户端设置：cookie不像webStorage有setItem，getItem，removeItem，clear等方法，需要自己封装。</p>
+<h1 id="cookie的缺点"><a href="#cookie的缺点" class="headerlink" title="cookie的缺点"></a>cookie的缺点</h1><ol>
+<li>大小受限：单个cookie保存的数据不能超过4k,很多浏览器限制一个站点最多保存20个cookie</li>
+<li>请求速度变慢：cookie体积过大会造成请求和响应速度变慢</li>
+<li>浪费带宽：设置过cookie后，每次访问服务器，浏览器会把此域名下的任何请求都带上cookie，哪怕是静态资源</li>
+<li>安全性较低：cookie欺骗，cookie截获</li>
+<li>有些用户禁用cookie，那么相应功能可能受限制</li>
+</ol>
+<h1 id="什么是session"><a href="#什么是session" class="headerlink" title="什么是session"></a>什么是session</h1><p>不同于cookie，session保存在服务器上。session相当于程序在服务器上建立一份客户档案，客户来访时只需要查询客户档案表就可以了。<br>当程序需要为某个客户端的请求创建一个session时，服务器首先检查这个客户端的请求里是否包含sessionid，如果已包含则说明以前已经为此客户端创建过session，服务器就按照sessionid把这个session检索出来使用（检索不到，会新建一个）。如果客户端请求不包含sessionid，则为客户端创建一个session并且生成一个与此session相关联的sessionid，然后将这个sessionid在本次响应中返回给客户端保存。至于客户端怎么保存这个”身份标识”，可能有很多方式，对于浏览器客户端，通常使用cookie方式存储sessionid。在交互中浏览器按照规则将sessionid发送给服务器。如果用户禁用cookie，则要使用URL重写，可以通过response.encodeURL(url) 进行实现；API对encodeURL的结束为，当浏览器支持Cookie时，url不做任何处理；当浏览器不支持Cookie的时候，将会重写URL将sessionid拼接到访问地址后。<br>为登录的用户生成的session ，可能会存储在内存，磁盘，或者数据库里。我们可能需要在服务端定期的去清理过期的session 。</p>
+<h1 id="session的优点"><a href="#session的优点" class="headerlink" title="session的优点"></a>session的优点</h1><p>1.安全性更高：session保存在服务器，客户端不知道其中的信息；cookie保存在客户端，服务器能够知道其中的信息<br>2.储存类型更丰富：session中保存的是对象，cookie中保存的是键值对组成的字符串</p>
+<h1 id="session的缺点"><a href="#session的缺点" class="headerlink" title="session的缺点"></a>session的缺点</h1><p>1.session不能区分路径：同一个用户在访问一个网站期间，所有的session在任何地方都可以访问到。而cookie中如果设置了路径参数，那么同一个网站不同路径下的cookie互相是不可以访问的<br>2.增加服务器压力：session会在一定时间内保存在服务器上。当访问增多，会占用服务器的性能<br>3.创建session变量有很大的随意性，可随时调用，不需要开发者做精确地处理，所以，过度使用session变量将会导致代码不可读而且不好维护<br>4.如果web服务器做了负载均衡，那么下一个操作请求到了另一台服务器的时候session会丢失</p>
+<h1 id="什么是webStorage"><a href="#什么是webStorage" class="headerlink" title="什么是webStorage?"></a>什么是webStorage?</h1><p>webStorage是HTML新增的本地存储解决方案之一，但并不是为了取代cookie而制定的标准，cookie作为HTTP协议的一部分用来处理客户端和服务器通信是不可或缺的，session正是依赖于cookie实现的客户端状态保持。WebStorage的意图在于解决本来不应该cookie做，却不得不用cookie的本地存储。<br>webStorage存储机制是对HTML4中cookie存储机制的一个改善。由于cookie存储机制有很多缺点，HTML5不再使用它，转而使用改良后的webStorage存储机制。本地数据库是HTML5中新增的一个功能，使用它可以在客户端本地建立一个数据库，原本必须保存在服务器端数据库中的内容现在可以直接保存在客户端本地了，这大大减轻了服务器端的负担，同时也加快了访问数据的速度。<br>HTML5的webStorage提供了两种API：localStorage（本地存储）和sessionStorage（会话存储）。</p>
+<h1 id="相比于用cookie做存储，webStorage的优点"><a href="#相比于用cookie做存储，webStorage的优点" class="headerlink" title="相比于用cookie做存储，webStorage的优点"></a>相比于用cookie做存储，webStorage的优点</h1><p>1.存储空间更大(webStorage的存储量大到5MB)<br>2.安全性上WebStorage并不作为HTTP header发送的浏览器，所以相对安全<br>3.从流量上讲，因为WebStorage不传送到服务器，所以不必要的流量可以节省，这样对于高频次访问或者针对手机移动设备的网页还是很不错的<br>4.webStorage拥有setItem,getItem,removeItem,clear等方法，而cookie需要前端开发者自己封装setCookie，getCookie</p>
+<h1 id="cookie-sessionStorage-localStorage的共同点和区别"><a href="#cookie-sessionStorage-localStorage的共同点和区别" class="headerlink" title="cookie sessionStorage localStorage的共同点和区别"></a>cookie sessionStorage localStorage的共同点和区别</h1><p>共同点：<br>都是保存在浏览器端，且同源共享<br>区别：</p>
+<ul>
+<li>cookie数据始终在同源的http请求中携带（即使不需要），即cookie在浏览器和服务器间来回传递，而webStorage不会自动把数据发给服务器，仅在本地保存</li>
+<li>cookie数据还有路径的概念，可以限制cookie只属于某个路径下</li>
+<li>存储大小限制不同</li>
+<li>数据有限期不同<br>sessionStorage :仅在当前浏览器窗口关闭前有效（比如刷新或者同一个窗口跳转页面都有效，但新开启一个页面就拿不到之前的sessionStorage）<br>localStorage :始终有效<br>cookie :只在设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭。但未设置过期时间的cookie，在关闭浏览器就失效（这种叫会话cookie，一般不存储在硬盘而是保存在内存里）</li>
+<li>webStorage的api接口使用更方便，cookie需要自己封装相应方法</li>
+</ul>
 
       
     </div>
@@ -377,7 +397,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/cookie-session/" rel="tag"># cookie session</a>
+            <a href="/tags/cookie-session-webStorage/" rel="tag"># cookie session webStorage</a>
           
         </div>
       
@@ -399,6 +419,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/08/web中静态资源和动态资源的概念及区别/" rel="prev" title="web中静态资源和动态资源的概念及区别">
+                web中静态资源和动态资源的概念及区别 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -455,8 +479,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -473,7 +506,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -484,7 +517,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -495,7 +528,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -542,6 +575,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是cookie"><span class="nav-number">1.</span> <span class="nav-text">什么是cookie</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cookie的缺点"><span class="nav-number">2.</span> <span class="nav-text">cookie的缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是session"><span class="nav-number">3.</span> <span class="nav-text">什么是session</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#session的优点"><span class="nav-number">4.</span> <span class="nav-text">session的优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#session的缺点"><span class="nav-number">5.</span> <span class="nav-text">session的缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是webStorage"><span class="nav-number">6.</span> <span class="nav-text">什么是webStorage?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相比于用cookie做存储，webStorage的优点"><span class="nav-number">7.</span> <span class="nav-text">相比于用cookie做存储，webStorage的优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cookie-sessionStorage-localStorage的共同点和区别"><span class="nav-number">8.</span> <span class="nav-text">cookie sessionStorage localStorage的共同点和区别</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -555,7 +604,8 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

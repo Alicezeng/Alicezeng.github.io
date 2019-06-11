@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zccblog.com/2019/04/25/test/">
+    <link itemprop="mainEntityOfPage" href="https://zccblog.com/2019/05/09/token/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Alicezeng">
@@ -284,7 +284,316 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/25/test/" itemprop="url">cookie和session</a></h1>
+                <a class="post-title-link" href="/2019/05/09/token/" itemprop="url">token</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-09T14:36:17+08:00">
+                2019-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/token-令牌/" itemprop="url" rel="index">
+                    <span itemprop="name">token 令牌</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="传统身份验证"><a href="#传统身份验证" class="headerlink" title="传统身份验证"></a>传统身份验证</h1><p>http是一种没有状态的协议，也就是它并不知道是谁在访问应用。这里我们把用户看成是客户端，客户端使用用户名还有密码通过了身份验证，不过下回这个客户端再发送请求时候，还得再验证一下。<br>解决的方法就是，当用户请求登录的时候，如果没有问题，我们在服务端生成一条记录，这个记录里可以说明一下登录的用户是谁，然后把这条记录的id号发送给客户端，客户端收到以后把这个id号存储在cookie里，下次这个用户再向服务端发送请求的时候，可以带着这个cookie，这样服务端会验证一个这个cookie里的信息，看看能不能在服务端这里找到对应的记录，如果可以，说明用户已经通过了身份验证，就把用户请求的数据返回给客户端。<br>上面说的就是session，我们需要在服务端为登录的用户存储生成的session，这些session可能会存储在内存，磁盘，或者数据库里。<br>对session来说，除非程序通知服务器删除一个session，否则服务器会一直保留，程序一般都是在用户做log off的时候发个指令去删除session。然而浏览器从来不会主动在关闭之前通知服务器它将要关闭，因此服务器根本不会有机会知道浏览器已经关闭。<br>之所以会有只要关闭浏览器 ，session就消失了这种错觉，是因为大部分session机制都使用会话cookie来保存sessionid，而关闭浏览器后这个sessionid就消失了，再次连接服务器时也就无法找到原来的session。如果服务器设置的cookie被保存在硬盘上，或者使用某种手段改写浏览器发出的http请求头，把原来的sessionid发送给服务器，则再次打开浏览器仍然能够打开原来的session。<br>恰恰是由于关闭浏览器不会导致session被删除，迫使服务器为session设置了一个失效时间，当距离客户端上一次使用session的时间超过这个失效时间时，服务器就可以以为客户端已经停止了活动，才会把session删除以节省存储空间。</p>
+<h1 id="基于token的身份验证"><a href="#基于token的身份验证" class="headerlink" title="基于token的身份验证"></a>基于token的身份验证</h1><p>使用基于token的身份验证方法，在服务端不需要存储用户的登录记录。大概的流程是这样的：</p>
+<ul>
+<li>客户端使用用户名跟密码请求登录</li>
+<li>服务端收到请求，去验证用户名与密码</li>
+<li>验证成功后，服务端会签发一个token，再把这个token发送给客户端</li>
+<li>客户端收到token以后可以把它存储起来，比如放在cookie里或者localStorage里</li>
+<li>客户端每次向服务端请求资源的时候需要带着服务端签发的token</li>
+<li>服务端收到请求，然后去验证客户端请求里面带着的token，如果验证成功，就向客户端返回请求的数据</li>
+</ul>
+<h1 id="token"><a href="#token" class="headerlink" title="token"></a>token</h1><p>1.使用token的优点</p>
+<ul>
+<li>减少对数据库的频繁查询</li>
+<li>节约服务器空间 ：token不用像sessionid一样存储在服务器上</li>
+<li>支持负载均衡，减少服务器压力。token无状态，可以支持服务器做负载均衡，用sessionid就无法水平扩展，因为在服务器集群里第一次可能请求到服务器A生成了sessionid，第二次请求到服务器B，拿着之前的sessionid去服务器B找session就无法找到</li>
+</ul>
+<p>2.什么是token<br>token是服务端生成的一串字符串，以作客户端进行请求的一个令牌。当第一次登录后，服务器生成一个token便将此token返回给客户端，以后客户端只需带上这个token前来请求数据即可，无需再次带上用户名和密码。最简单的token组成:uid(用户唯一的身份标识)、time(当前时间的时间戳)、sign(签名），由token的前几位+盐以哈希算法压缩成一定长的十六进制字符串，可以防止恶意第三方拼接token请求服务器。</p>
+<p>3.token没有保存在服务器上，是怎样做到验证的？<br>比如说，小F已经登录了系统，我给他发一个令牌(token)，里边包含了小F的userid，下一次小F再次通过Http请求访问我的时候，把这个token 通过Http header 带过来不就可以了。不过这和sessionid没有本质区别啊，任何人都可以可以伪造，所以得想点儿办法，让别人伪造不了。<br>那就对数据做一个签名吧， 比如说我用HMAC-SHA256 算法，加上一个只有我才知道的密钥，  对数据做一个签名， 把这个签名和数据一起作为token ，由于密钥别人不知道， 就无法伪造token了。</p>
+<p><img src="/2019/05/09/token/images/1.png" alt="图片"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zccblog.com/2019/05/08/web中静态资源和动态资源的概念及区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Alicezeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CC的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/08/web中静态资源和动态资源的概念及区别/" itemprop="url">web中静态资源和动态资源的概念及区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-08T18:16:08+08:00">
+                2019-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/静态资源-动态资源/" itemprop="url" rel="index">
+                    <span itemprop="name">静态资源 动态资源</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.静态资源和动态资源的概念</p>
+<p>简单来说：</p>
+<p>静态资源：一般客户端发送请求到web服务器，web服务器从内存取到相应的文件，返回给客户端，客户端解析并渲染显示出来。</p>
+<p>动态资源：一般客户端请求的动态资源，先将请求交于web容器，web容器连接数据库，数据库处理数据之后，将内容交给web服务器，web服务器返回给客户端解析渲染处理。</p>
+<p>2.静态资源和动态资源的区别</p>
+<p>a.静态资源一般都是设计好的html页面，而动态资源依靠设计好的程序来实现按照需求的动态响应；</p>
+<p>b.静态资源的交互性差，动态资源可以根据需求自由实现；</p>
+<p>c.在服务器的运行状态不同，静态资源不需要与数据库参于程序处理，动态可能需要多个数据库的参与运算。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zccblog.com/2019/04/25/cookie和session和webStorage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Alicezeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CC的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/25/cookie和session和webStorage/" itemprop="url">cookie、session和webStorage</a></h1>
         
 
         <div class="post-meta">
@@ -358,7 +667,27 @@
       
         
           
-            <p>HTML4的本地存储   cookie<br>浏览器的缓存机制提供了可以将用户数据存储在客户端上的方式，可以利用cookie和session等跟服务器进行数据交互。</p>
+            <h1 id="什么是cookie"><a href="#什么是cookie" class="headerlink" title="什么是cookie"></a>什么是cookie</h1><p>cookie是指某些网站为了辨别用户身份而存储在用户本地终端上的数据（通常经过加密）。cookie通过HTTP请求报文和响应报文配合完成。cookie的内容主要包括：键，值，过期时间，路径和域。路径和域一起构成cookie的作用范围。若不设置时间，则表示这个cookie的生命期为浏览器会话期间，此时cookie保存在内存里，关闭浏览器窗口，cookie就消失。（会话cookie可以跨同一个浏览器的不同窗口，但关闭浏览器或者跨浏览器后就会失效）<br>若设置了过期时间，则浏览器把cookie保存在硬盘上，关闭后再打开浏览器这些cookie仍然有效直到超过设定的过期时间。<br>cookie既可以由服务端来设置，也可以由客户端来设置。<br>服务端设置：客户端第一次向服务端请求时，在相应的请求头中就有set-cookie字段，用来标识是哪个用户，响应头中有set-cookie字段，有几个这个字段就有几个cookie。服务端可以设置cookie 的所有选项：expires、domain、path、secure、HttpOnly。<br>客户端设置：cookie不像webStorage有setItem，getItem，removeItem，clear等方法，需要自己封装。</p>
+<h1 id="cookie的缺点"><a href="#cookie的缺点" class="headerlink" title="cookie的缺点"></a>cookie的缺点</h1><ol>
+<li>大小受限：单个cookie保存的数据不能超过4k,很多浏览器限制一个站点最多保存20个cookie</li>
+<li>请求速度变慢：cookie体积过大会造成请求和响应速度变慢</li>
+<li>浪费带宽：设置过cookie后，每次访问服务器，浏览器会把此域名下的任何请求都带上cookie，哪怕是静态资源</li>
+<li>安全性较低：cookie欺骗，cookie截获</li>
+<li>有些用户禁用cookie，那么相应功能可能受限制</li>
+</ol>
+<h1 id="什么是session"><a href="#什么是session" class="headerlink" title="什么是session"></a>什么是session</h1><p>不同于cookie，session保存在服务器上。session相当于程序在服务器上建立一份客户档案，客户来访时只需要查询客户档案表就可以了。<br>当程序需要为某个客户端的请求创建一个session时，服务器首先检查这个客户端的请求里是否包含sessionid，如果已包含则说明以前已经为此客户端创建过session，服务器就按照sessionid把这个session检索出来使用（检索不到，会新建一个）。如果客户端请求不包含sessionid，则为客户端创建一个session并且生成一个与此session相关联的sessionid，然后将这个sessionid在本次响应中返回给客户端保存。至于客户端怎么保存这个”身份标识”，可能有很多方式，对于浏览器客户端，通常使用cookie方式存储sessionid。在交互中浏览器按照规则将sessionid发送给服务器。如果用户禁用cookie，则要使用URL重写，可以通过response.encodeURL(url) 进行实现；API对encodeURL的结束为，当浏览器支持Cookie时，url不做任何处理；当浏览器不支持Cookie的时候，将会重写URL将sessionid拼接到访问地址后。<br>为登录的用户生成的session ，可能会存储在内存，磁盘，或者数据库里。我们可能需要在服务端定期的去清理过期的session 。</p>
+<h1 id="session的优点"><a href="#session的优点" class="headerlink" title="session的优点"></a>session的优点</h1><p>1.安全性更高：session保存在服务器，客户端不知道其中的信息；cookie保存在客户端，服务器能够知道其中的信息<br>2.储存类型更丰富：session中保存的是对象，cookie中保存的是键值对组成的字符串</p>
+<h1 id="session的缺点"><a href="#session的缺点" class="headerlink" title="session的缺点"></a>session的缺点</h1><p>1.session不能区分路径：同一个用户在访问一个网站期间，所有的session在任何地方都可以访问到。而cookie中如果设置了路径参数，那么同一个网站不同路径下的cookie互相是不可以访问的<br>2.增加服务器压力：session会在一定时间内保存在服务器上。当访问增多，会占用服务器的性能<br>3.创建session变量有很大的随意性，可随时调用，不需要开发者做精确地处理，所以，过度使用session变量将会导致代码不可读而且不好维护<br>4.如果web服务器做了负载均衡，那么下一个操作请求到了另一台服务器的时候session会丢失</p>
+<h1 id="什么是webStorage"><a href="#什么是webStorage" class="headerlink" title="什么是webStorage?"></a>什么是webStorage?</h1><p>webStorage是HTML新增的本地存储解决方案之一，但并不是为了取代cookie而制定的标准，cookie作为HTTP协议的一部分用来处理客户端和服务器通信是不可或缺的，session正是依赖于cookie实现的客户端状态保持。WebStorage的意图在于解决本来不应该cookie做，却不得不用cookie的本地存储。<br>webStorage存储机制是对HTML4中cookie存储机制的一个改善。由于cookie存储机制有很多缺点，HTML5不再使用它，转而使用改良后的webStorage存储机制。本地数据库是HTML5中新增的一个功能，使用它可以在客户端本地建立一个数据库，原本必须保存在服务器端数据库中的内容现在可以直接保存在客户端本地了，这大大减轻了服务器端的负担，同时也加快了访问数据的速度。<br>HTML5的webStorage提供了两种API：localStorage（本地存储）和sessionStorage（会话存储）。</p>
+<h1 id="相比于用cookie做存储，webStorage的优点"><a href="#相比于用cookie做存储，webStorage的优点" class="headerlink" title="相比于用cookie做存储，webStorage的优点"></a>相比于用cookie做存储，webStorage的优点</h1><p>1.存储空间更大(webStorage的存储量大到5MB)<br>2.安全性上WebStorage并不作为HTTP header发送的浏览器，所以相对安全<br>3.从流量上讲，因为WebStorage不传送到服务器，所以不必要的流量可以节省，这样对于高频次访问或者针对手机移动设备的网页还是很不错的<br>4.webStorage拥有setItem,getItem,removeItem,clear等方法，而cookie需要前端开发者自己封装setCookie，getCookie</p>
+<h1 id="cookie-sessionStorage-localStorage的共同点和区别"><a href="#cookie-sessionStorage-localStorage的共同点和区别" class="headerlink" title="cookie sessionStorage localStorage的共同点和区别"></a>cookie sessionStorage localStorage的共同点和区别</h1><p>共同点：<br>都是保存在浏览器端，且同源共享<br>区别：</p>
+<ul>
+<li>cookie数据始终在同源的http请求中携带（即使不需要），即cookie在浏览器和服务器间来回传递，而webStorage不会自动把数据发给服务器，仅在本地保存</li>
+<li>cookie数据还有路径的概念，可以限制cookie只属于某个路径下</li>
+<li>存储大小限制不同</li>
+<li>数据有限期不同<br>sessionStorage :仅在当前浏览器窗口关闭前有效（比如刷新或者同一个窗口跳转页面都有效，但新开启一个页面就拿不到之前的sessionStorage）<br>localStorage :始终有效<br>cookie :只在设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭。但未设置过期时间的cookie，在关闭浏览器就失效（这种叫会话cookie，一般不存储在硬盘而是保存在内存里）</li>
+<li>webStorage的api接口使用更方便，cookie需要自己封装相应方法</li>
+</ul>
 
           
         
@@ -605,7 +934,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -616,7 +945,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -627,7 +956,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -687,7 +1016,8 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
