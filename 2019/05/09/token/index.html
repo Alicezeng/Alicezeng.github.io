@@ -89,12 +89,23 @@
 <meta property="og:site_name" content="CC的博客">
 <meta property="og:description" content="传统身份验证http是一种没有状态的协议，也就是它并不知道是谁在访问应用。这里我们把用户看成是客户端，客户端使用用户名还有密码通过了身份验证，不过下回这个客户端再发送请求时候，还得再验证一下。解决的方法就是，当用户请求登录的时候，如果没有问题，我们在服务端生成一条记录，这个记录里可以说明一下登录的用户是谁，然后把这条记录的id号发送给客户端，客户端收到以后把这个id号存储在cookie里，下次这个">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://zccblog.com/2019/05/09/token/images/1.png">
-<meta property="og:updated_time" content="2019-05-14T09:01:31.776Z">
+<meta property="og:image" content="https://zccblog.com/2019/05/09/token/9.png">
+<meta property="og:image" content="https://zccblog.com/2019/05/09/token/10.png">
+<meta property="og:image" content="https://zccblog.com/2019/05/09/token/11.png">
+<meta property="og:image" content="https://zccblog.com/2019/05/09/token/12.png">
+<meta property="og:image" content="https://zccblog.com/2019/05/09/token/13.png">
+<meta property="og:image" content="https://zccblog.com/2019/05/09/token/1.png">
+<meta property="og:image" content="https://zccblog.com/2019/05/09/token/2.png">
+<meta property="og:image" content="https://zccblog.com/2019/05/09/token/3.jpg">
+<meta property="og:image" content="https://zccblog.com/2019/05/09/token/4.jpg">
+<meta property="og:image" content="https://zccblog.com/2019/05/09/token/5.jpg">
+<meta property="og:image" content="https://zccblog.com/2019/05/09/token/7.jpg">
+<meta property="og:image" content="https://zccblog.com/2019/05/09/token/8.jpg">
+<meta property="og:updated_time" content="2019-05-15T07:33:02.725Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="token">
 <meta name="twitter:description" content="传统身份验证http是一种没有状态的协议，也就是它并不知道是谁在访问应用。这里我们把用户看成是客户端，客户端使用用户名还有密码通过了身份验证，不过下回这个客户端再发送请求时候，还得再验证一下。解决的方法就是，当用户请求登录的时候，如果没有问题，我们在服务端生成一条记录，这个记录里可以说明一下登录的用户是谁，然后把这条记录的id号发送给客户端，客户端收到以后把这个id号存储在cookie里，下次这个">
-<meta name="twitter:image" content="https://zccblog.com/2019/05/09/token/images/1.png">
+<meta name="twitter:image" content="https://zccblog.com/2019/05/09/token/9.png">
 
 
 
@@ -362,7 +373,7 @@
 
       
         <h1 id="传统身份验证"><a href="#传统身份验证" class="headerlink" title="传统身份验证"></a>传统身份验证</h1><p>http是一种没有状态的协议，也就是它并不知道是谁在访问应用。这里我们把用户看成是客户端，客户端使用用户名还有密码通过了身份验证，不过下回这个客户端再发送请求时候，还得再验证一下。<br>解决的方法就是，当用户请求登录的时候，如果没有问题，我们在服务端生成一条记录，这个记录里可以说明一下登录的用户是谁，然后把这条记录的id号发送给客户端，客户端收到以后把这个id号存储在cookie里，下次这个用户再向服务端发送请求的时候，可以带着这个cookie，这样服务端会验证一个这个cookie里的信息，看看能不能在服务端这里找到对应的记录，如果可以，说明用户已经通过了身份验证，就把用户请求的数据返回给客户端。<br>上面说的就是session，我们需要在服务端为登录的用户存储生成的session，这些session可能会存储在内存，磁盘，或者数据库里。<br>对session来说，除非程序通知服务器删除一个session，否则服务器会一直保留，程序一般都是在用户做log off的时候发个指令去删除session。然而浏览器从来不会主动在关闭之前通知服务器它将要关闭，因此服务器根本不会有机会知道浏览器已经关闭。<br>之所以会有只要关闭浏览器 ，session就消失了这种错觉，是因为大部分session机制都使用会话cookie来保存sessionid，而关闭浏览器后这个sessionid就消失了，再次连接服务器时也就无法找到原来的session。如果服务器设置的cookie被保存在硬盘上，或者使用某种手段改写浏览器发出的http请求头，把原来的sessionid发送给服务器，则再次打开浏览器仍然能够打开原来的session。<br>恰恰是由于关闭浏览器不会导致session被删除，迫使服务器为session设置了一个失效时间，当距离客户端上一次使用session的时间超过这个失效时间时，服务器就可以以为客户端已经停止了活动，才会把session删除以节省存储空间。</p>
-<h1 id="基于token的身份验证"><a href="#基于token的身份验证" class="headerlink" title="基于token的身份验证"></a>基于token的身份验证</h1><p>使用基于token的身份验证方法，在服务端不需要存储用户的登录记录。大概的流程是这样的：</p>
+<h1 id="基于token的身份验证"><a href="#基于token的身份验证" class="headerlink" title="基于token的身份验证"></a>基于token的身份验证</h1><p>使用基于token的身份验证方法，在服务端不需要存储用户的登录记录。所以token的身份验证是无状态的，大概的流程是这样的：</p>
 <ul>
 <li>客户端使用用户名跟密码请求登录</li>
 <li>服务端收到请求，去验证用户名与密码</li>
@@ -371,15 +382,36 @@
 <li>客户端每次向服务端请求资源的时候需要带着服务端签发的token</li>
 <li>服务端收到请求，然后去验证客户端请求里面带着的token，如果验证成功，就向客户端返回请求的数据</li>
 </ul>
-<h1 id="token"><a href="#token" class="headerlink" title="token"></a>token</h1><p>1.使用token的优点</p>
-<ul>
+<h1 id="token"><a href="#token" class="headerlink" title="token"></a>token</h1><h2 id="1-什么是token"><a href="#1-什么是token" class="headerlink" title="1.什么是token"></a>1.什么是token</h2><p>token是服务端生成的一串字符串，以作客户端进行请求的一个令牌。当第一次登录后，服务器生成一个token便将此token返回给客户端，以后客户端只需带上这个token前来请求数据即可，无需再次带上用户名和密码。</p>
+<h3 id="token分有状态token和无状态token"><a href="#token分有状态token和无状态token" class="headerlink" title="token分有状态token和无状态token"></a>token分有状态token和无状态token</h3><p>有状态token :将token 的相关属性 (eg:token 过期时间等) 记录在服务端。我们用图表述颁发 token，校验 token，token 过期这三个场景。<br>1.颁发token<br><img src="/2019/05/09/token/9.png" alt><br>2.服务端校验 token<br><img src="/2019/05/09/token/10.png" alt><br>3.token 过期<br><img src="/2019/05/09/token/11.png" alt><br>无状态token:将token 的相关属性（eg:token 过期时间等）保存在token 中，JWT 就是一种无状态的token。JWT 这里不详细说明，我们主要看下几个流程：<br>1.颁发 token<br><img src="/2019/05/09/token/12.png" alt><br>2.服务端校验 token<br><img src="/2019/05/09/token/13.png" alt><br>二者的区别在于，有状态要占用服务器资源并且不利于分布式，微服务等架构。<br>无状态刚好能解决这个问题，但是无状态的token ，不存在token 黑白单这种需求。<br>最简单的无状态token组成:uid(用户唯一的身份标识)、time(当前时间的时间戳)、sign(签名），由token的前几位+盐以哈希算法压缩成一定长的十六进制字符串，可以防止恶意第三方拼接token请求服务器。</p>
+<h2 id="2-使用token的优点"><a href="#2-使用token的优点" class="headerlink" title="2.使用token的优点"></a>2.使用token的优点</h2><ul>
+<li>无状态可支持负载均衡：token可以是无状态的，可以支持服务器做负载均衡，用sessionid就无法水平扩展，因为在服务器集群里第一次可能请求到服务器A生成了sessionid，第二次请求到服务器B，拿着之前的sessionid去服务器B找session就无法找到</li>
+<li>安全性：请求中发送token而不再是发送cookie能够防止CSRF(跨站请求伪造)。即使在客户端使用cookie存储token，cookie也仅仅是一个存储机制而不是用于认证。不将信息存储在session中，让我们少了对session操作。</li>
+<li>可扩展性：token能够创建与其它程序共享权限的程序。使用token时，可以提供可选的权限给第三方应用程序。当用户想让另一个应用程序访问它们的数据，我们可以通过建立自己的API，得出特殊权限的token。</li>
+<li>多平台跨域:我们提前先来谈论一下CORS(跨域资源共享)，对应用程序和服务进行扩展的时候，需要介入各种各种的设备和应用程序。只要用户有一个通过了验证的token，数据和资源就能够在任何域上被请求到。</li>
 <li>减少对数据库的频繁查询</li>
 <li>节约服务器空间 ：token不用像sessionid一样存储在服务器上</li>
-<li>支持负载均衡，减少服务器压力。token无状态，可以支持服务器做负载均衡，用sessionid就无法水平扩展，因为在服务器集群里第一次可能请求到服务器A生成了sessionid，第二次请求到服务器B，拿着之前的sessionid去服务器B找session就无法找到</li>
 </ul>
-<p>2.什么是token<br>token是服务端生成的一串字符串，以作客户端进行请求的一个令牌。当第一次登录后，服务器生成一个token便将此token返回给客户端，以后客户端只需带上这个token前来请求数据即可，无需再次带上用户名和密码。最简单的token组成:uid(用户唯一的身份标识)、time(当前时间的时间戳)、sign(签名），由token的前几位+盐以哈希算法压缩成一定长的十六进制字符串，可以防止恶意第三方拼接token请求服务器。</p>
-<p>3.token没有保存在服务器上，是怎样做到验证的？<br>比如说，小F已经登录了系统，我给他发一个令牌(token)，里边包含了小F的userid，下一次小F再次通过Http请求访问我的时候，把这个token 通过Http header 带过来不就可以了。不过这和sessionid没有本质区别啊，任何人都可以可以伪造，所以得想点儿办法，让别人伪造不了。<br>那就对数据做一个签名吧， 比如说我用HMAC-SHA256 算法，加上一个只有我才知道的密钥，  对数据做一个签名， 把这个签名和数据一起作为token ，由于密钥别人不知道， 就无法伪造token了。</p>
-<p><img src="/2019/05/09/token/images/1.png" alt="图片"></p>
+<h2 id="3-token没有保存在服务器上，是怎样做到验证的（无状态token怎样验证）？"><a href="#3-token没有保存在服务器上，是怎样做到验证的（无状态token怎样验证）？" class="headerlink" title="3.token没有保存在服务器上，是怎样做到验证的（无状态token怎样验证）？"></a>3.token没有保存在服务器上，是怎样做到验证的（无状态token怎样验证）？</h2><p>比如说，小F已经登录了系统，我给他发一个令牌(token)，里边包含了小F的userid，下一次小F再次通过Http请求访问我的时候，把这个token 通过Http header 带过来不就可以了。不过这和sessionid没有本质区别啊，任何人都可以可以伪造，所以得想点儿办法，让别人伪造不了。<br>那就对数据做一个签名吧， 比如说我用HMAC-SHA256算法，加上一个只有我才知道的密钥,对数据做一个签名，把这个签名和数据一起作为token ，由于密钥别人不知道，就无法伪造token了。<br><img src="/2019/05/09/token/1.png" alt="图片"><br>这个token我不保存，当小F把这个token 给我发过来的时候，我再用同样的HMAC-SHA256 算法和同样的密钥，对数据再计算一次签名，和token 中的签名做个比较，如果相同， 我就知道小F已经登录过了，并且可以直接取到小F的userid,如果不相同，数据部分肯定被人篡改过，我就告诉发送者： 对不起，没有认证。<br><img src="/2019/05/09/token/2.png" alt="图片"><br>token中的数据是明文保存的（虽然我会用Base64做下编码， 但那不是加密）， 还是可以被别人看到的， 所以我不能在其中保存像密码这样的敏感信息。<br>这样一来，我就不保存sessionid 了， 我只是生成token , 然后验证token ，  我用我的CPU计算时间获取了我的session存储空间 ！<br>解除了sessionid这个负担，可以说是无事一身轻， 我的机器集群现在可以轻松地做水平扩展， 用户访问量增大，直接加机器就行。</p>
+<h2 id="4-token需要设置有效期吗？"><a href="#4-token需要设置有效期吗？" class="headerlink" title="4.token需要设置有效期吗？"></a>4.token需要设置有效期吗？</h2><p>token是在服务端产生的，如果前端使用用户名/密码向服务端请求认证，服务端认证成功，那么在服务端会返回token 给前端。<br>前端可以在每次请求的时候带上token 证明自己的合法地位。如果这个token 在服务端持久化（比如存入数据库），那它就是一个永久的身份令牌。<br>于是，又一个问题产生了：需要为token 设置有效期吗？<br>对于这个问题，我们不妨先看两个例子：<br>登录密码，一般要求定期改变密码，以防止泄漏，所以密码是有有效期的。<br>安全证书，SSL 安全证书都有有效期，目的是为了解决吊销的问题，对于这个问题的详细情况，来看看知乎的回答(<a href="http://dwz.cn/7joMhq)。" target="_blank" rel="noopener">http://dwz.cn/7joMhq)。</a><br>所以无论是从安全的角度考虑，还是从吊销的角度考虑，token 都需要设有效期。<br>那么有效期多长合适呢？只能说，根据系统的安全需要，尽可能的短，但也不能短得离谱。</p>
+<h2 id="5-用户在正常操作的过程中，token-过期失效了怎么处理不影响用户体验？"><a href="#5-用户在正常操作的过程中，token-过期失效了怎么处理不影响用户体验？" class="headerlink" title="5.用户在正常操作的过程中，token 过期失效了怎么处理不影响用户体验？"></a>5.用户在正常操作的过程中，token 过期失效了怎么处理不影响用户体验？</h2><p>1)为了解决在操作过程不能让用户感到token 失效这个问题，有一种方案是在服务器端保存token 状态，用户每次操作都会自动刷新（推迟）token 的过期时间——session 就是采用这种策略来保持用户登录状态的。<br>然而仍然存在这样一个问题，在前后端分离、单页 App 这些情况下，每秒种可能发起很多次请求，每次都去刷新过期时间会产生非常大的代价。<br>如果 token 的过期时间被持久化到数据库或文件，代价就更大了。所以通常为了提升效率，减少消耗，会把token的过期时间保存在缓存或者内存中。<br>2)使用 Refresh Token，它可以避免频繁的读写操作。这种方案中，服务端不需要刷新token 的过期时间，一旦token 过期，就反馈给前端，前端使用 Refresh Token 申请一个全新 token 继续使用。<br>这种方案中，服务端只需要在客户端请求更新token 的时候对 Refresh Token 的有效性进行一次检查，大大减少了更新有效期的操作，也就避免了频繁读写。当然 Refresh Token 也是有有效期的，但是这个有效期就可以长一点了，比如，以天为单位的时间。使用 token 和 Refresh Token 的时序图如下：<br>登录：<br><img src="/2019/05/09/token/3.jpg" alt="图片"><br>业务请求<br><img src="/2019/05/09/token/4.jpg" alt="图片"><br>token过期，刷新token<br><img src="/2019/05/09/token/5.jpg" alt="图片"><br>上面的时序图中并未提到 Refresh Token 过期怎么办。不过很显然，Refresh Token 既然已经过期，就该要求用户重新登录了。<br>当然还可以把这个机制设计得更复杂一些，比如，Refresh Token 每次使用的时候，都更新它的过期时间，直到与它的创建时间相比，已经超过了非常长的一段时间（比如三个月），这等于是在相当长一段时间内允许 Refresh Token 自动续期。</p>
+<p>到目前为止，token 都是有状态的，即在服务端需要保存并记录相关属性（这种token和session的原理一样，只不过针对于过期时间做了优化，通过增加个refresh token来减少对过期时间的频繁读写）。那说好的无状态呢，怎么实现？<br>无状态 token</p>
+<p>如果我们把所有状态信息都附加在token 上，服务器就可以不保存。但是服务端仍然需要认证token 有效。</p>
+<p>不过只要服务端能确认是自己签发的token，而且其信息未被改动过，那就可以认为token 有效——“签名”可以作此保证。<br>平时常说的签名都存在一方签发，另一方验证的情况，所以要使用非对称加密算法。</p>
+<p>但是在这里，签发和验证都是同一方，所以对称加密算法就能达到要求，而对称算法比非对称算法要快得多（可达数十倍差距）。<br>更进一步思考，对称加密算法除了加密，还带有还原加密内容的功能，而这一功能在对token 签名时并无必要——既然不需要解密，摘要（散列）算法就会更快。你可以指定密码的散列算法，自然是 HMAC。<br>上面说了这么多，还需要自己去实现吗？不用！JWT 已经定义了详细的规范，而且有各种语言的若干实现。<br>不过在使用无状态 token 的时候在服务端会有一些变化，服务端虽然不保存有效的token 了，却需要保存未到期却已注销的 token。<br>如果一个 token 未到期就被用户主动注销，那么服务器需要保存这个被注销的 token，以便下次收到使用这个仍在有效期内的 token 时判其无效。<br>在前端可控的情况下（比如前端和服务端在同一个项目组内），可以协商：前端一旦注销成功，就丢掉本地保存（比如保存在内存、Local Storage 等）的 Token 和 Refresh Token。</p>
+<p>基于这样的约定，服务器就可以假设收到的 Token 一定是没注销的（因为注销之后前端就不会再使用了）。</p>
+<p>如果前端不可控的情况，仍然可以进行上面的假设，但是这种情况下，需要尽量缩短 Token 的有效期，而且必须在用户主动注销的情况下让 Refresh Token 无效。</p>
+<p>这个操作存在一定的安全漏洞，因为用户会认为已经注销了，实际上在较短的一段时间内并没有注销。如果应用设计中，这点漏洞并不会造成什么损失，那采用这种策略就是可行的。<br>在使用无状态token的时候，有两点要注意：<br>refresh token有效时间较长，所以它应该在服务器端有状态，以增强安全性，确保用户注销时可控。<br>应该考虑使用二次认证来增强敏感操作的安全性。<br>分离认证服务<br>当 Token 无状态之后，单点登录就变得容易了。前端拿到一个有效的 Token，它就可以在任何同一体系的服务上认证通过，只要它们使用同样的密钥和算法来认证 Token 的有效性。就像这样，如下图：<br><img src="/2019/05/09/token/7.jpg" alt="图片"><br>当然，如果 Token 过期了，前端仍然需要去认证服务更新 Token：<br><img src="/2019/05/09/token/8.jpg" alt="图片"><br>见，虽然认证和业务分离了，实际却并没产生多大的差异。当然，这是建立在认证服务器信任业务服务器的前提下，因为认证服务器产生 Token 的密钥和业务服务器认证 Token 的密钥和算法相同。<br>换句话说，业务服务器同样可以创建有效的 Token。如果业务服务器不能被信任，该怎么办？</p>
+<p>不受信的业务服务器<br>遇到不受信的业务服务器时，很容易想到的办法是使用不同的密钥。认证服务器使用密钥 1 签发，业务服务器使用密钥 2 验证——这是典型非对称加密签名的应用场景。</p>
+<p>认证服务器自己使用私钥对 Token 签名，公开公钥。信任这个认证服务器的业务服务器保存公钥，用于验证签名。</p>
+<p>幸好，JWT 不仅可以使用 HMAC 签名，也可以使用 RSA（一种非对称加密算法）签名。</p>
+<p>不过，当业务服务器已经不受信任的时候，多个业务服务器之间使用相同的 Token 对用户来说是不安全的。</p>
+<p>因为任何一个服务器拿到 Token 都可以仿冒用户去另一个服务器处理业务……悲剧随时可能发生。<br>为了防止这种情况发生，就需要在认证服务器产生 Token 的时候，把使用该 Token 的业务服务器的信息记录在 Token 中。<br>这样当另一个业务服务器拿到这个 Token 的时候，发现它并不是自己应该验证的 Token，就可以直接拒绝。<br>现在，认证服务器不信任业务服务器，业务服务器相互也不信任，但前端是信任这些服务器的——如果前端不信任，就不会拿 Token 去请求验证。</p>
+<p>那么为什么会信任？可能是因为这些是同一家公司或者同一个项目中提供的若干服务构成的服务体系。</p>
+<p>但是，前端信任不代表用户信任。如果 Token 不没有携带用户隐私（比如姓名），那么用户不会关心信任问题。</p>
+<p>但如果 Token 含有用户隐私的时候，用户得关心信任问题了。这时候认证服务就不得不再啰嗦一些，当用户请求 Token 的时候，问上一句，你真的要授权给某某某业务服务吗？<br>而这个“某某某”，用户怎么知道它是不是真的“某某某”呢？用户当然不知道，甚至认证服务也不知道，因为公钥已经公开了，任何一个业务都可以声明自己是“某某某”。</p>
+<p>为了得到用户的信任，认证服务就不得不帮助用户来甄别业务服务。所以，认证服器决定不公开公钥，而是要求业务服务先申请注册并通过审核。</p>
+<p>只有通过审核的业务服务器才能得到认证服务为它创建的，仅供它使用的公钥。如果该业务服务泄漏公钥带来风险，由该业务服务自行承担。现在认证服务可以清楚的告诉用户，“某某某”服务是什么了。</p>
 
       
     </div>
@@ -419,6 +451,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/15/import与require的使用和区别/" rel="prev" title="import与require的使用和区别">
+                import与require的使用和区别 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -502,7 +538,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -524,7 +560,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -580,7 +616,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#传统身份验证"><span class="nav-number">1.</span> <span class="nav-text">传统身份验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于token的身份验证"><span class="nav-number">2.</span> <span class="nav-text">基于token的身份验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#token"><span class="nav-number">3.</span> <span class="nav-text">token</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#传统身份验证"><span class="nav-number">1.</span> <span class="nav-text">传统身份验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于token的身份验证"><span class="nav-number">2.</span> <span class="nav-text">基于token的身份验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#token"><span class="nav-number">3.</span> <span class="nav-text">token</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是token"><span class="nav-number">3.1.</span> <span class="nav-text">1.什么是token</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#token分有状态token和无状态token"><span class="nav-number">3.1.1.</span> <span class="nav-text">token分有状态token和无状态token</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-使用token的优点"><span class="nav-number">3.2.</span> <span class="nav-text">2.使用token的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-token没有保存在服务器上，是怎样做到验证的（无状态token怎样验证）？"><span class="nav-number">3.3.</span> <span class="nav-text">3.token没有保存在服务器上，是怎样做到验证的（无状态token怎样验证）？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-token需要设置有效期吗？"><span class="nav-number">3.4.</span> <span class="nav-text">4.token需要设置有效期吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-用户在正常操作的过程中，token-过期失效了怎么处理不影响用户体验？"><span class="nav-number">3.5.</span> <span class="nav-text">5.用户在正常操作的过程中，token 过期失效了怎么处理不影响用户体验？</span></a></li></ol></li></ol></div>
             
 
           </div>
